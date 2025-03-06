@@ -85,27 +85,3 @@ def pandagpt_generate_safety_test_responses(args, model_path, data_path, image_f
     df = pd.DataFrame({'image_idx':image_idx_list, 'query':query_list, 'response':response_list})
     df.to_csv(os.path.join(save_path, model_name + "_nolora50epoch-VLGuard-test-response.csv"), index=False)
 
-
-# init the model
-args = {
-    'model': 'openllama_peft',
-    'imagebind_ckpt_path': '/home/jd/model_ckpt/imagebind',
-    'vicuna_ckpt_path': '/home/jd/model_ckpt/vicuna-fastchat-merged/7b_v0',
-    # 'delta_ckpt_path': '/home/jd/otherworks/PandaGPT/pretrained_ckpt/pandagpt_ckpt/7b/pytorch_model.pt',
-    # 'delta_ckpt_path': '/home/jd/otherworks/PandaGPT/code/ckpt/pandagpt_7b_v0_peft_10epoch/pytorch_model.pt',
-    'delta_ckpt_path': '/home/jd/otherworks/PandaGPT/code/ckpt/pandagpt_7b_v0_peft_50epoch_nolora/pytorch_model.pt',
-    'stage': 2,
-    'max_tgt_len': 128,
-    'lora_r': 32,
-    'lora_alpha': 32,
-    'lora_dropout': 0.1,
-}
-    
-
-# model_path = "/home/jd/otherworks/PandaGPT/pretrained_ckpt/pandagpt_ckpt/7b/pytorch_model.pt"
-# model_path = "/home/jd/otherworks/PandaGPT/code/ckpt/pandagpt_7b_v0_peft_10epoch/pytorch_model.pt"
-model_path = "/home/jd/otherworks/PandaGPT/code/ckpt/pandagpt_7b_v0_peft_50epoch_nolora/pytorch_model.pt"
-data_path = "/home/jd/temp/VLGuard/VLGuard_test_processed_new.json"
-image_folder = "/home/jd/temp/VLGuard/test/"
-save_path = "/home/jd/otherworks/"
-pandagpt_generate_safety_test_responses(args, model_path, data_path, image_folder, save_path, model_base=None)
